@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badge Act Submission — Tiger Honor Cord Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#111111;
+  --gold:#F5B800;
+  --gold-dk:#C99500;
+  --gold-lt:#FFF8DC;
+  --gold-glow:rgba(245,184,0,.18);
+  --white:#ffffff;
+  --gray:#F5F5F3;
+  --mid:#666666;
+  --text:#222222;
+  --border:#E0E0DC;
+  --danger:#C0392B;
+  --success:#1a7a4a;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--black);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* ── HEADER ── */
+.form-header{
+  background:var(--black);
+  border-bottom:3px solid var(--gold);
+  padding:28px 24px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.form-header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(-55deg,transparent 0,transparent 40px,rgba(245,184,0,.025) 40px,rgba(245,184,0,.025) 41px);
+  pointer-events:none;
+}
+.header-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.school-label{
+  font-family:'Oswald',sans-serif;
+  font-size:.72rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+.form-header h1{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  font-weight:700;
+  color:var(--white);
+  line-height:1.15;
+  margin-bottom:10px;
+}
+.form-header h1 span{color:var(--gold)}
+.header-sub{
+  font-size:.97rem;
+  color:rgba(255,255,255,.65);
+  max-width:500px;
+  margin:0 auto;
+  line-height:1.6;
+}
+
+/* ── BADGE PICKER ── */
+.badge-strip{
+  background:var(--black);
+  padding:28px 24px 0;
+  max-width:680px;
+  margin:0 auto;
+}
+.badge-strip-label{
+  font-family:'Oswald',sans-serif;
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  text-align:center;
+  margin-bottom:16px;
+}
+.badge-options{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.badge-opt{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  padding:14px 16px 12px;
+  border-radius:10px;
+  border:2px solid rgba(245,184,0,.15);
+  background:rgba(255,255,255,.03);
+  transition:border-color .2s, background .2s, transform .2s;
+  min-width:120px;
+  position:relative;
+}
+.badge-opt:hover{
+  border-color:rgba(245,184,0,.5);
+  background:rgba(245,184,0,.06);
+  transform:translateY(-3px);
+}
+.badge-opt.selected{
+  border-color:var(--gold);
+  background:rgba(245,184,0,.1);
+  transform:translateY(-3px);
+}
+.badge-opt.selected::after{
+  content:'✓';
+  position:absolute;
+  top:-8px;right:-8px;
+  width:20px;height:20px;
+  background:var(--gold);
+  color:var(--black);
+  border-radius:50%;
+  font-size:.7rem;
+  font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  line-height:20px;
+  text-align:center;
+}
+.badge-opt img{
+  width:72px;height:72px;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 8px rgba(245,184,0,.3));
+  transition:filter .2s;
+}
+.badge-opt.selected img{filter:drop-shadow(0 4px 16px rgba(245,184,0,.7))}
+.badge-opt-name{
+  font-family:'Oswald',sans-serif;
+  font-size:.82rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.7);
+  transition:color .2s;
+}
+.badge-opt.selected .badge-opt-name{color:var(--gold)}
+.badge-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+
+/* ── FORM CARD ── */
+.form-wrap{
+  max-width:680px;
+  margin:0 auto;
+  padding:28px 24px 60px;
+}
+.form-card{
+  background:var(--white);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.4);
+}
+
+/* ── INTRO PANEL ── */
+.intro-panel{
+  background:var(--gold);
+  padding:24px 28px;
+}
+.intro-panel h2{
+  font-family:'Oswald',sans-serif;
+  font-size:1.15rem;
+  font-weight:700;
+  color:var(--black);
+  margin-bottom:10px;
+}
+.intro-panel p{
+  font-size:.93rem;
+  color:rgba(0,0,0,.75);
+  line-height:1.65;
+  margin-bottom:8px;
+}
+.intro-panel p:last-child{margin-bottom:0}
+.intro-panel strong{color:var(--black)}
+.google-notice{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  background:rgba(0,0,0,.12);
+  border-radius:7px;
+  padding:10px 14px;
+  margin-top:14px;
+  font-size:.86rem;
+  color:rgba(0,0,0,.8);
+  font-weight:500;
+}
+.google-notice .icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+
+/* ── FORM BODY ── */
+.form-body{padding:28px 28px 32px}
+.form-section{margin-bottom:32px}
+.form-section-title{
+  font-family:'Oswald',sans-serif;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--gold-dk);
+  margin-bottom:18px;
+  padding-bottom:8px;
+  border-bottom:2px solid var(--gold-lt);
+}
+.field-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.field{margin-bottom:18px}
+.field:last-child{margin-bottom:0}
+label{
+  display:block;
+  font-size:.85rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:6px;
+}
+label .req{color:var(--danger);margin-left:2px}
+label .hint{
+  font-weight:400;
+  color:var(--mid);
+  font-size:.8rem;
+  margin-left:4px;
+}
+input[type=text],
+input[type=email],
+input[type=tel],
+select,
+textarea{
+  width:100%;
+  padding:11px 14px;
+  border:1.5px solid var(--border);
+  border-radius:7px;
+  font-family:'Inter',sans-serif;
+  font-size:.95rem;
+  color:var(--text);
+  background:var(--white);
+  transition:border-color .15s, box-shadow .15s;
+  appearance:none;
+  -webkit-appearance:none;
+}
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
+select:focus,
+textarea:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px var(--gold-glow);
+}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  padding-right:36px;
+  cursor:pointer;
+}
+textarea{
+  resize:vertical;
+  min-height:110px;
+  line-height:1.6;
+}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone{
+  border:2px dashed var(--border);
+  border-radius:10px;
+  padding:28px 20px;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .2s, background .2s;
+  position:relative;
+  background:var(--gray);
+}
+.upload-zone:hover,.upload-zone.dragover{
+  border-color:var(--gold);
+  background:var(--gold-lt);
+}
+.upload-zone input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
+.upload-icon{font-size:2rem;margin-bottom:8px;display:block}
+.upload-zone p{
+  font-size:.9rem;
+  color:var(--mid);
+  line-height:1.5;
+}
+.upload-zone strong{color:var(--text)}
+.upload-zone .file-types{
+  font-size:.78rem;
+  color:var(--mid);
+  margin-top:6px;
+}
+.file-preview{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+.file-chip{
+  background:var(--black);
+  color:var(--gold);
+  font-size:.78rem;
+  font-weight:500;
+  padding:4px 10px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.file-chip .remove{
+  cursor:pointer;
+  opacity:.6;
+  font-size:.85rem;
+  line-height:1;
+}
+.file-chip .remove:hover{opacity:1}
+
+/* ── SUBMIT ── */
+.form-footer{
+  padding:0 28px 28px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+}
+.submit-btn{
+  width:100%;
+  background:var(--gold);
+  color:var(--black);
+  font-family:'Oswald',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:18px 32px;
+  border:none;
+  border-radius:7px;
+  cursor:pointer;
+  transition:background .15s, transform .15s, box-shadow .15s;
+  box-shadow:0 4px 20px rgba(245,184,0,.35);
+}
+.submit-btn:hover{
+  background:var(--gold-dk);
+  transform:translateY(-2px);
+  box-shadow:0 6px 28px rgba(245,184,0,.5);
+}
+.submit-btn:active{transform:translateY(0)}
+.form-note{
+  font-size:.82rem;
+  color:var(--mid);
+  text-align:center;
+  line-height:1.5;
+}
+.form-note a{color:var(--gold-dk);text-decoration:underline}
+
+/* ── SUCCESS STATE ── */
+.success-screen{
+  display:none;
+  text-align:center;
+  padding:60px 28px;
+}
+.success-screen.show{display:block}
+.success-icon{font-size:3.5rem;margin-bottom:16px}
+.success-screen h2{
+  font-family:'Oswald',sans-serif;
+  font-size:1.8rem;
+  font-weight:700;
+  color:var(--black);
+  margin-bottom:10px;
+}
+.success-screen p{
+  color:var(--mid);
+  font-size:.97rem;
+  line-height:1.65;
+  max-width:420px;
+  margin:0 auto 24px;
+}
+.success-badge-row{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:24px;
+}
+.reset-btn{
+  background:var(--black);
+  color:var(--gold);
+  font-family:'Oswald',sans-serif;
+  font-size:.9rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:12px 28px;
+  border:2px solid var(--gold);
+  border-radius:6px;
+  cursor:pointer;
+  transition:background .15s;
+}
+.reset-btn:hover{background:var(--gold);color:var(--black)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .field-row{grid-template-columns:1fr}
+  .badge-options{gap:8px}
+  .badge-opt{min-width:100px;padding:12px}
+  .badge-opt img{width:56px;height:56px}
+  .form-body{padding:20px 18px 24px}
+  .form-footer{padding:0 18px 24px}
+  .intro-panel{padding:20px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="form-header">
+  <div class="header-inner">
+    <p class="school-label">J.P. Case Middle School &nbsp;·&nbsp; Tiger Honor Cord Project</p>
+    <h1>Submit a <span>Badge Act</span></h1>
+    <p class="header-sub">Log a verified act of character toward your digital badge — and your path to the Honor Cord.</p>
+  </div>
+</header>
+
+<!-- BADGE VISUAL PICKER -->
+<div class="badge-strip">
+  <p class="badge-strip-label">Choose your badge below before filling out the form</p>
+  <div class="badge-options" id="badgePicker">
+    <label class="badge-opt" id="opt-leadership">
+      <input type="radio" name="badgePick" value="Leadership" onchange="selectBadge('Leadership')">
+      <img id="badge-img-leadership" src="images/leadership.png" alt="Leadership Badge">
+      <span class="badge-opt-name">Leadership</span>
+    </label>
+    <label class="badge-opt" id="opt-citizenship">
+      <input type="radio" name="badgePick" value="Citizenship" onchange="selectBadge('Citizenship')">
+      <img id="badge-img-citizenship" src="images/citizenship.png" alt="Citizenship Badge">
+      <span class="badge-opt-name">Citizenship</span>
+    </label>
+    <label class="badge-opt" id="opt-volunteerism">
+      <input type="radio" name="badgePick" value="Volunteerism" onchange="selectBadge('Volunteerism')">
+      <img id="badge-img-volunteerism" src="images/compassion.png" alt="Volunteerism Badge">
+      <span class="badge-opt-name">Volunteerism</span>
+    </label>
+    <label class="badge-opt" id="opt-upstander">
+      <input type="radio" name="badgePick" value="Being an Upstander" onchange="selectBadge('Being an Upstander')">
+      <img id="badge-img-upstander" src="images/integrity.png" alt="Upstander Badge">
+      <span class="badge-opt-name">Upstander</span>
+    </label>
+  </div>
+</div>
+
+<!-- FORM CARD -->
+<div class="form-wrap">
+  <div class="form-card">
+
+    <!-- INTRO -->
+    <div class="intro-panel">
+      <h2>How This Works</h2>
+      <p>To recognize and honor the great work you are doing in school and in our broader community, we have designed a digital badge system that culminates in earning an <strong>Honor Cord</strong> worn at your 8th-grade promotion ceremony.</p>
+      <p>Submit meaningful acts you've completed in school or the community. Each approved act counts as a credit toward your badge. Attach a photo, flyer, letter, or brief description as evidence — your submission will be reviewed by the badge committee.</p>
+      <div class="google-notice">
+        <span class="icon">🔒</span>
+        <span>You must be signed in with your <strong>student Google account</strong> to submit this form.</span>
+      </div>
+    </div>
+
+    <!-- FORM BODY -->
+    <div id="mainForm">
+      <div class="form-body">
+
+        <!-- STUDENT INFO -->
+        <div class="form-section">
+          <div class="form-section-title">Student Information</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="firstName">First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" name="firstName" placeholder="Your first name" required>
+            </div>
+            <div class="field">
+              <label for="lastName">Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" name="lastName" placeholder="Your last name" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="team">Team Assignment <span class="req">*</span></label>
+              <select id="team" name="team" required>
+                <option value="" disabled selected>Select your team</option>
+                <optgroup label="7th Grade">
+                  <option value="7-2">7-2</option>
+                  <option value="7-3">7-3</option>
+                  <option value="7-4">7-4</option>
+                </optgroup>
+                <optgroup label="8th Grade">
+                  <option value="8-2">8-2</option>
+                  <option value="8-3">8-3</option>
+                  <option value="8-4">8-4</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="field">
+              <label for="trimester">Current Trimester <span class="req">*</span></label>
+              <select id="trimester" name="trimester" required>
+                <option value="" disabled selected>Select trimester</option>
+                <option value="Trimester 1">Trimester 1</option>
+                <option value="Trimester 2">Trimester 2</option>
+                <option value="Trimester 3">Trimester 3</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- BADGE + ACT -->
+        <div class="form-section">
+          <div class="form-section-title">Badge &amp; Act</div>
+          <div class="field">
+            <label for="badgeSelect">Badge You're Requesting Credit For <span class="req">*</span></label>
+            <select id="badgeSelect" name="badge" required onchange="syncBadgeFromSelect(this.value)">
+              <option value="" disabled selected>Select a badge</option>
+              <option value="Leadership">🏅 Leadership</option>
+              <option value="Citizenship">🏅 Citizenship</option>
+              <option value="Volunteerism">🏅 Volunteerism</option>
+              <option value="Being an Upstander">🏅 Being an Upstander</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="actDescription">
+              Description of Your Act <span class="req">*</span>
+              <span class="hint">— What did you do? Where? When?</span>
+            </label>
+            <textarea id="actDescription" name="actDescription" placeholder="Describe what you did, where it happened, and approximately when. Be specific — the committee uses this to evaluate your submission." required></textarea>
+          </div>
+        </div>
+
+        <!-- WITNESS -->
+        <div class="form-section">
+          <div class="form-section-title">Adult Witness</div>
+          <p style="font-size:.88rem;color:var(--mid);margin-bottom:16px;line-height:1.55">
+            Your act must be verified by an adult who witnessed or can confirm it — a teacher, parent, coach, or community organization representative. Any one adult may only verify one act per badge category.
+          </p>
+          <div class="field">
+            <label for="witnessName">Adult's Full Name <span class="req">*</span></label>
+            <input type="text" id="witnessName" name="witnessName" placeholder="e.g. Maria Gonzalez" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="witnessRelation">Relationship to You <span class="req">*</span></label>
+              <select id="witnessRelation" name="witnessRelation" required>
+                <option value="" disabled selected>Select relationship</option>
+                <option value="Teacher / Staff">Teacher / Staff</option>
+                <option value="Parent / Guardian">Parent / Guardian</option>
+                <option value="Coach">Coach</option>
+                <option value="Community Organization">Community Organization</option>
+                <option value="Neighbor / Community Member">Neighbor / Community Member</option>
+                <option value="Other Adult">Other Adult</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="witnessContact">Witness Contact Info <span class="req">*</span>
+                <span class="hint">— email or phone</span>
+              </label>
+              <input type="text" id="witnessContact" name="witnessContact" placeholder="email@example.com or (555) 000-0000" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- EVIDENCE -->
+        <div class="form-section">
+          <div class="form-section-title">Evidence Upload</div>
+          <p style="font-size:.88rem;color:var(--mid);margin-bottom:14px;line-height:1.55">
+            Attach proof of your act — a photo, screenshot, flyer, sign-in sheet, or brief letter. At least one piece of evidence is required.
+          </p>
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="fileUpload" name="evidence" multiple accept="image/*,.pdf,.doc,.docx">
+            <span class="upload-icon">📎</span>
+            <p><strong>Drag files here or click to browse</strong></p>
+            <p>Photo, PDF, or document showing your act</p>
+            <p class="file-types">JPG · PNG · PDF · DOC · DOCX &nbsp;·&nbsp; Max 10 MB per file</p>
+            <div class="file-preview" id="filePreview"></div>
+          </div>
+        </div>
+
+      </div><!-- /form-body -->
+
+      <div class="form-footer">
+        <button type="button" class="submit-btn" onclick="handleSubmit()">Submit My Act &rarr;</button>
+        <p class="form-note">
+          Your submission is saved to the JP Case badge committee's Google Sheet and reviewed promptly.<br>
+          Questions? Ask your homeroom teacher or visit the <a href="index.html">Tiger Honor Cord Project page</a>.
+        </p>
+      </div>
+    </div><!-- /mainForm -->
+
+    <!-- SUCCESS SCREEN -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🏅</div>
+      <h2>Act Submitted!</h2>
+      <p>Your act has been received and will be reviewed by the badge committee. Keep doing great things — every act gets you closer to your Honor Cord.</p>
+      <div class="success-badge-row" id="successBadgeRow"></div>
+      <button class="reset-btn" onclick="resetForm()">Submit Another Act</button>
+    </div>
+
+  </div><!-- /form-card -->
+</div><!-- /form-wrap -->
+
+<script>
+// ── Badge images (loaded from the existing website's badge files inline) ──
+// We'll use placeholder colored circles in stand-alone mode,
+// but swap to real badge images if they're passed in via URL param or sibling files.
+const BADGE_COLORS = {
+  'Leadership':        '#F5B800',
+  'Citizenship':       '#F5B800',
+  'Volunteerism':      '#F5B800',
+  'Being an Upstander':'#F5B800',
+};
+
+const BADGE_EMOJIS = {
+  'Leadership':'🦁',
+  'Citizenship':'🌍',
+  'Volunteerism':'🤝',
+  'Being an Upstander':'⭐',
+};
+
+// Try to load badge images from same directory
+const BADGE_IMGS = {
+  'Leadership':        'Leadership_Badge.png',
+  'Citizenship':       'Citizenship_Badge.png',
+  'Volunteerism':      'Compassion_Badge.png',
+  'Being an Upstander':'Integrity_Badge.png',
+};
+
+// Set badge images — fall back gracefully to emoji if files not found
+function loadBadgeImages() {
+  const map = {
+    'leadership':  'Leadership',
+    'citizenship': 'Citizenship',
+    'volunteerism':'Volunteerism',
+    'upstander':   'Being an Upstander',
+  };
+  Object.entries(map).forEach(([key, val]) => {
+    const el = document.getElementById('badge-img-' + key);
+    if (el) {
+      el.onerror = function() {
+        // Replace with a gold emoji fallback
+        el.style.display = 'none';
+        const span = document.createElement('span');
+        span.textContent = BADGE_EMOJIS[val];
+        span.style.cssText = 'font-size:2.8rem;line-height:1';
+        el.parentNode.insertBefore(span, el);
+      };
+      el.src = BADGE_IMGS[val];
+    }
+  });
+}
+
+function selectBadge(val) {
+  document.querySelectorAll('.badge-opt').forEach(el => el.classList.remove('selected'));
+  const key = val.toLowerCase().replace(/\s+/g,'').replace('beingan','');
+  // map value to opt id
+  const map = {
+    'leadership':'opt-leadership',
+    'citizenship':'opt-citizenship',
+    'volunteerism':'opt-volunteerism',
+    'beinganupstander':'opt-upstander',
+  };
+  const optId = map[val.toLowerCase().replace(/\s+/g,'')];
+  if (optId) document.getElementById(optId).classList.add('selected');
+  // sync the select
+  const sel = document.getElementById('badgeSelect');
+  sel.value = val;
+}
+
+function syncBadgeFromSelect(val) {
+  selectBadge(val);
+}
+
+// ── File upload ──
+const uploadZone = document.getElementById('uploadZone');
+const fileInput  = document.getElementById('fileUpload');
+const filePreview= document.getElementById('filePreview');
+let selectedFiles = [];
+
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  addFiles(Array.from(e.dataTransfer.files));
+});
+fileInput.addEventListener('change', () => addFiles(Array.from(fileInput.files)));
+
+function addFiles(files) {
+  files.forEach(f => {
+    if (!selectedFiles.find(x => x.name === f.name)) selectedFiles.push(f);
+  });
+  renderFilePreview();
+}
+
+function removeFile(name) {
+  selectedFiles = selectedFiles.filter(f => f.name !== name);
+  renderFilePreview();
+}
+
+function renderFilePreview() {
+  filePreview.innerHTML = selectedFiles.map(f =>
+    `<div class="file-chip">📄 ${f.name} <span class="remove" onclick="removeFile('${f.name}')" title="Remove">✕</span></div>`
+  ).join('');
+}
+
+// ── Validation & submit ──
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/frsd.us/s/AKfycbwhJS5NgL1FmMxjxMFHD3G0QbJk9CBsN2CG3FaHW2IEE9IPsL1_xh9SYDadl7VSTjtj0A/exec';
+
+function handleSubmit() {
+  const required = ['firstName','lastName','team','trimester','badgeSelect','actDescription','witnessName','witnessRelation','witnessContact'];
+  let valid = true;
+
+  required.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.style.borderColor = 'var(--danger)';
+      el.style.boxShadow = '0 0 0 3px rgba(192,57,43,.15)';
+      valid = false;
+    } else {
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    }
+  });
+
+  if (!valid) {
+    const first = document.querySelector('[style*="danger"]');
+    if (first) first.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+
+  // Build payload
+  const payload = {
+    firstName:        document.getElementById('firstName').value.trim(),
+    lastName:         document.getElementById('lastName').value.trim(),
+    team:             document.getElementById('team').value,
+    trimester:        document.getElementById('trimester').value,
+    badge:            document.getElementById('badgeSelect').value,
+    actDescription:   document.getElementById('actDescription').value.trim(),
+    witnessName:      document.getElementById('witnessName').value.trim(),
+    witnessRelation:  document.getElementById('witnessRelation').value,
+    witnessContact:   document.getElementById('witnessContact').value.trim(),
+    evidenceFiles:    selectedFiles.map(f => f.name).join(', ') || 'None uploaded',
+  };
+
+  // Show loading state on button
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',          // Apps Script requires no-cors from external origins
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  .then(() => {
+    // no-cors means we can't read the response body — a resolved promise means it arrived
+    showSuccess(payload.badge);
+  })
+  .catch(err => {
+    btn.textContent = 'Submit My Act →';
+    btn.disabled = false;
+    btn.style.opacity = '';
+    showError();
+  });
+}
+
+function showSuccess(badge) {
+  document.getElementById('mainForm').style.display = 'none';
+  const ss = document.getElementById('successScreen');
+  ss.classList.add('show');
+
+  // Show the submitted badge image
+  const row = document.getElementById('successBadgeRow');
+  row.innerHTML = '';
+  const badgeKey = badge.toLowerCase().replace(/\s+/g,'').replace('beingan','');
+  const imgMap = {
+    'leadership':'badge-img-leadership',
+    'citizenship':'badge-img-citizenship',
+    'volunteerism':'badge-img-volunteerism',
+    'upstander':'badge-img-upstander'
+  };
+  const srcEl = document.getElementById(imgMap[badgeKey] || 'badge-img-leadership');
+  if (srcEl && srcEl.src) {
+    const img = document.createElement('img');
+    img.src = srcEl.src;
+    img.style.cssText = 'width:90px;height:90px;object-fit:contain;filter:drop-shadow(0 4px 20px rgba(245,184,0,.7))';
+    row.appendChild(img);
+  }
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function showError() {
+  // Insert an error banner above the submit button if not already there
+  if (document.getElementById('submitError')) return;
+  const footer = document.querySelector('.form-footer');
+  const err = document.createElement('p');
+  err.id = 'submitError';
+  err.style.cssText = 'color:var(--danger);font-size:.88rem;text-align:center;padding:0 0 8px';
+  err.textContent = 'Something went wrong — please check your connection and try again.';
+  footer.insertBefore(err, footer.firstChild);
+}
+
+function resetForm() {
+  document.getElementById('mainForm').style.display = '';
+  document.getElementById('successScreen').classList.remove('show');
+  document.getElementById('mainForm').querySelectorAll('input,select,textarea').forEach(el => {
+    el.value = '';
+    el.style.borderColor = '';
+    el.style.boxShadow = '';
+  });
+  document.querySelectorAll('.badge-opt').forEach(el => el.classList.remove('selected'));
+  selectedFiles = [];
+  renderFilePreview();
+  document.getElementById('successBadgeRow').innerHTML = '';
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Submit My Act →';
+  btn.disabled = false;
+  btn.style.opacity = '';
+  const err = document.getElementById('submitError');
+  if (err) err.remove();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+loadBadgeImages();
+</script>
+</body>
+</html>
